@@ -1,45 +1,53 @@
--- Tabela Ator (corrigida de 'Rtor')
-CREATE TABLE Ator(
+CREATE TABLE IF NOT EXISTS Ator (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    nome VARCHAR(28) NOT NULL,  -- Corrigido de 'none'
-    dataNasc DATE NOT NULL       -- Corrigido de 'database'
+    nome VARCHAR(35) NOT NULL,
+    dataNasc DATE NOT NULL
 );
 
--- Tabela Director
-CREATE TABLE Director(
+CREATE TABLE IF NOT EXISTS Diretor (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    nome VARCHAR(28) NOT NULL,
+    nome VARCHAR(35) NOT NULL,
     dataNasc DATE NOT NULL,
     biografia VARCHAR(150) NOT NULL
 );
 
--- Tabela Avaliacao (corrigida de 'Availableaso')
-CREATE TABLE Avaliacao(
-    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,  -- Adicionado PK
-    autor VARCHAR(28),
-    estrelas DECIMAL,
-    resenha VARCHAR(150)
+CREATE TABLE IF NOT EXISTS Filme (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    titulo VARCHAR(50) NOT NULL,
+    anoLancamento INT UNSIGNED NOT NULL,
+    sinopse VARCHAR(130) NOT NULL,
+    notaIMDB DECIMAL NOT NULL,
+    diretorId INTEGER NOT NULL,
+    FOREIGN KEY (diretorId) REFERENCES Diretor (id)
 );
 
--- Tabela Filme (com FKs corretas)
-CREATE TABLE Filme(
+CREATE TABLE IF NOT EXISTS Avaliacao (
     id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    titulo VARCHAR(35) NOT NULL,
-    anoLancamento INT UNSIGNED NOT NULL,  -- Corrigido de 'anolanoanento'
-    genero VARCHAR(28),
-    sinopse VARCHAR(128) NOT NULL,
-    posterURL VARCHAR(129) NOT NULL,      -- Corrigido de 'posterURLs'
-    notaIMDB DECIMAL NOT NULL,            -- Corrigido de 'notalIND'
-    idDirector INTEGER NOT NULL,
-    idAvaliacao INTEGER NOT NULL,
-    FOREIGN KEY (idDirector) REFERENCES Director(id),
-    FOREIGN KEY (idAvaliacao) REFERENCES Avaliacao(id)
+    filmeId INTEGER NOT NULL,
+    autor VARCHAR(35) DEFAULT 'Anônimo',
+    estrelas DECIMAL NOT NULL,
+    resenha VARCHAR(150) NOT NULL,
+    FOREIGN KEY (filmeId) REFERENCES Filme (id)
 );
-CREATE TABLE Filme_Ator (
-    filme_id INTEGER NOT NULL,
-    ator_id INTEGER NOT NULL,
-    papel VARCHAR(50),  -- Exemplo: papel do ator no filme (opcional)
-    PRIMARY KEY (filme_id, ator_id),
-    FOREIGN KEY (filme_id) REFERENCES Filme(id),
-    FOREIGN KEY (ator_id) REFERENCES Ator(id)
+
+CREATE TABLE IF NOT EXISTS Genero (
+    id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
+    nome VARCHAR(25) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS Filme_Ator (
+    filmeId INTEGER NOT NULL,
+    atorId INTEGER NOT NULL,
+    papel VARCHAR(50),
+    PRIMARY KEY (filmeId, atorId),
+    FOREIGN KEY (filmeId) REFERENCES Filme (id),
+    FOREIGN KEY (atorId) REFERENCES Ator (id)
+);
+
+CREATE TABLE IF NOT EXISTS Filme_Genero (
+    filmeId INTEGER NOT NULL,
+    generoId INTEGER NOT NULL,
+    PRIMARY KEY (filmeId, generoId),
+    FOREIGN KEY (filmeId) REFERENCES Filme (id),
+    FOREIGN KEY (generoId) REFERENCES Genero (id)
 );
