@@ -1,15 +1,14 @@
-using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Cinema_Api.src.Controllers;
 
+[Route("api/v1/[controller]")]
 [ApiController]
-[Route("api/v1/teste")]
-public class TestController : ControllerBase {
-
+public class TestController : ControllerBase
+{
 	[HttpGet]
-	public ActionResult<string> Teste() {
-		return Ok("Funciona!");
+	public string Teste()
+	{
+		return "Funciona!";
 	}
-
 }
