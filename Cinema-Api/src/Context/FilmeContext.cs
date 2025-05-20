@@ -5,7 +5,7 @@ namespace Cinema_Api.src.Context;
 
 public class FilmeContext : DbContext
 {
-	public DbSet<Filme> Filmes { get; set; }
+	public DbSet<Filme> Filme { get; set; }
 
 	public FilmeContext(DbContextOptions options)
 		: base(options) { }
