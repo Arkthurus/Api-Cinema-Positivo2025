@@ -13,7 +13,7 @@ public class FilmesController(FilmeContext filmeContext) : ControllerBase
 	[HttpGet]
 	public ActionResult AllFilmes()
 	{
-		List<Filme> filmes = [.. _filmeContext.Filmes];
+		List<Filme> filmes = [.. _filmeContext.Filme];
 		return Ok(filmes);
 	}
 }
