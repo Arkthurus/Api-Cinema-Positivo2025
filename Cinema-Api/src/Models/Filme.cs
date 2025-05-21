@@ -1,7 +1,11 @@
+using System.ComponentModel.DataAnnotations.Schema;
+using Microsoft.AspNetCore.Mvc;
+
 namespace Cinema_Api.src.Models;
 
-public class Filme(string titulo, int anoLancamento, string sinopse, string posterURLs, float nota)
+public class Filme(int id, string titulo, int anoLancamento, string sinopse, float notaIMDB)
 {
+	public int Id { get; set; } = id;
 
 	public string Titulo { get; set; } = titulo;
 
@@ -9,8 +13,5 @@ public class Filme(string titulo, int anoLancamento, string sinopse, string post
 
 	public string Sinopse { get; set; } = sinopse;
 
-	public string PosterURLs { get; set; } = posterURLs;
-
-	public float NotaIMDB { get; set; } = nota;
-	
+	public float NotaIMDB { get; set; } = notaIMDB;
 }
