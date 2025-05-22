@@ -1,5 +1,5 @@
-using Cinema_Api.src.Context;
 using Cinema_Api.src.Models;
+using Cinema_Api.src.Service;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
@@ -7,29 +7,23 @@ namespace Cinema_Api.src.Controllers;
 
 [ApiController]
 [Route("api/v1/[controller]")]
-public class FilmesController(MasterContext masterContext) : ControllerBase
+public class FilmesController(FilmesService service) : ControllerBase
 {
-	private readonly MasterContext masterContext = masterContext;
-
-	public MasterContext MasterContext => masterContext;
+	private FilmesService FilmesService { get; } = service;
 
 	[HttpGet]
-	public ActionResult AllFilmes()
+	public ActionResult<List<Filme>> AllFilmes()
 	{
-		var filmes = MasterContext
-			.Filme.Include(f => f.FilmesGeneros)
-			.ThenInclude(fg => fg.Genero)
-			.Select(f => new
-			{
-				f.Id,
-				f.Titulo,
-				f.AnoLancamento,
-				f.Sinopse,
-				f.NotaIMDB,
-				Generos = f.FilmesGeneros.Select(fg => fg.Genero.Nome).ToList(),
-			})
-			.ToListAsync();
+		var filmes = FilmesService.AllFilmes();
 
 		return Ok(filmes);
+	}
+
+	[HttpGet("{id}")]
+	public ActionResult<Filme> SingleFilme(int id)
+	{
+		var filme = FilmesService.SingleFilme(id);
+
+		return Ok(filme);
 	}
 }

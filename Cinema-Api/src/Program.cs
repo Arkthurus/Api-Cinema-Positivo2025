@@ -1,9 +1,13 @@
 using Cinema_Api.src.Context;
+using Cinema_Api.src.Service;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+// Services
+builder.Services.AddScoped<FilmesService>();
+
+// Add Controllers to the container.
 builder.Services.AddControllers();
 
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
