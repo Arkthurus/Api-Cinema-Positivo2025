@@ -1,5 +1,3 @@
-using System.Text.Json.Serialization;
-
 namespace Cinema_Api.src.Models;
 
 public class Filme
