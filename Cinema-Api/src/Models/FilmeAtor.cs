@@ -18,5 +18,5 @@ public class FilmeAtor
 
 	[JsonIgnoreAttribute]
 	
-	public Genero Genero { get; set; } = null!;
+	public Ator Ator { get; set; } = null!;
 }

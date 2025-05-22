@@ -21,7 +21,7 @@ public class FilmesService(MasterContext masterContext, GeneroService generoServ
 				f.Sinopse,
 				f.NotaIMDB,
 				f.FilmesGeneros.Select(fg => fg.Genero.Nome).ToList(),
-				new DiretorDTO { Nome = "", DataNascimento = "" }
+				f.DiretorId
 			))
 			.ToList();
 
@@ -73,6 +73,7 @@ public class FilmesService(MasterContext masterContext, GeneroService generoServ
 			Sinopse = filmeDto.Sinopse,
 			NotaIMDB = filmeDto.NotaIMDB,
 			AnoLancamento = filmeDto.AnoLancamento,
+			DiretorId = filmeDto.DiretorId,
 		};
 
 		_masterContext.Filme.Add(filme);
