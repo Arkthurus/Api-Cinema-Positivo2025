@@ -11,7 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 // Database
-builder.Services.AddDbContext<FilmeContext>(options =>
+builder.Services.AddDbContext<MasterContext>(options =>
 {
 	options.UseSqlite("Data Source=database/filmes.db");
 });
